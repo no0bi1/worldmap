@@ -339,11 +339,6 @@ local function EnableWorldMap()
 end
 
 local function UpdateWorldMap()
-    if not WorldMapAddonDB or not WorldMapAddonDB.enabled then
-        DisableWorldMap();
-        return;
-    end
-
     if IsAddOnLoaded("Cartographer") or IsAddOnLoaded("MetaMap") then
         DisableWorldMap();
         return;
@@ -365,44 +360,14 @@ local function UpdateWorldMap()
     end
 end
 
-local function SetEnabled(enabled)
-    WorldMapAddonDB.enabled = enabled and true or false;
-    UpdateWorldMap();
-    DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99WorldMap:|r " ..
-        (WorldMapAddonDB.enabled and "enabled." or "disabled."));
-end
-
 local function OnEvent()
-    if event == "VARIABLES_LOADED" then
-        WorldMapAddonDB = WorldMapAddonDB or {};
-        if WorldMapAddonDB.enabled == nil then
-            WorldMapAddonDB.enabled = true;
-        end
-        UpdateWorldMap();
-        eventFrame:UnregisterEvent("VARIABLES_LOADED");
-        eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD");
-        eventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA");
-        eventFrame:RegisterEvent("ZONE_CHANGED");
-        eventFrame:RegisterEvent("ZONE_CHANGED_INDOORS");
-    else
-        UpdateWorldMap();
-    end
+    UpdateWorldMap();
 end
 
-eventFrame:RegisterEvent("VARIABLES_LOADED");
+eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD");
+eventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA");
+eventFrame:RegisterEvent("ZONE_CHANGED");
+eventFrame:RegisterEvent("ZONE_CHANGED_INDOORS");
 eventFrame:SetScript("OnEvent", OnEvent);
 
-SLASH_WORLDMAP1 = "/worldmap";
-SLASH_WORLDMAP2 = "/wmap";
-SlashCmdList["WORLDMAP"] = function(msg)
-    msg = string.lower(msg or "");
-    if msg == "on" then
-        SetEnabled(true);
-    elseif msg == "off" then
-        SetEnabled(false);
-    elseif msg == "toggle" or msg == "" then
-        SetEnabled(not WorldMapAddonDB.enabled);
-    else
-        DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99WorldMap commands:|r /worldmap on, off, toggle");
-    end
-end
+UpdateWorldMap();
