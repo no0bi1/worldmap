@@ -3,6 +3,4 @@
 ## Notes: Standalone World Map layout, click-through, fading, and navigation.
 ## Author: no0bi1
 ## Version: 1.0
-## SavedVariables: WorldMapAddonDB
-
 WorldMap.lua
