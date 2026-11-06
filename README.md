@@ -13,21 +13,9 @@ A standalone World of Warcraft 1.12 addon that changes the Blizzard World Map pr
 - Keeps Escape able to close the map.
 - Suspends the layout in party and raid instances.
 - Does not take over the map when Cartographer or MetaMap is loaded.
-- Can be enabled or disabled with slash commands.
 
 ## Installation
 
 Copy the `WorldMap` folder into `Interface/AddOns/`.
 
-## Commands
-
-- `/worldmap on`
-- `/worldmap off`
-- `/worldmap toggle`
-- `/wmap` toggles the addon.
-
-The addon is independent: it does not load, inspect, or require Questie, and has its own SavedVariables (`WorldMapAddonDB`).
-
-## Configuration
-
-The addon is enabled by default. Its enabled state is stored in `WorldMapAddonDB`.
+The addon is independent and does not load, inspect, or require Questie. It applies its map presentation automatically when loaded.
